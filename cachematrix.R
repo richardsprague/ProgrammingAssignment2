@@ -1,13 +1,19 @@
-## Put comments here that give an overall description of what your
-## functions do
+## Richard Sprague, sprague@outlook.com 
+## Programming Assignment # 2
+## https://github.com/richardsprague/ProgrammingAssignment2
 
-# key function to use: solve
-# if a is a matrix
-# and x = solve(a)
-# then a * x = the identity matrix
-sampleMatrix = matrix(c(1,2,3,4,5,5,9,8,9),3,3)
 
-## Write a short comment describing this function
+## example use of this function:
+## sampleMatrix <- matrix(c(1,2,3,4,5,5,9,8,9),3,3)
+## m <- makeCacheMatrix(sampleMatrix)
+## cacheSolve(m)
+#### (returns a matrix that is the Solve, i.e. inverse of sampleMatrix)
+## cacheSolve(m)
+## (returns the same matrix as the line above, but without re-calculation)
+
+## Creates a new matrix that can be used with the cacheSolve function below
+## Since the normal R 'solve' function can be expensive, a cacheMatrix will
+## a cacheMatrix will return a cached version of a solve calculation if one exists.
 
 makeCacheMatrix <- function(x = matrix()) {
         m <- NULL
@@ -24,17 +30,24 @@ makeCacheMatrix <- function(x = matrix()) {
 }
 
 
-## Write a short comment describing this function
+## returns the result of applying the built-in R 'solve' function 
+##  to a matrix that was created by makeCacheMatrix above.
 
 cacheSolve <- function(x, ...) {
         ## Return a matrix that is the inverse of 'x'
-        m <- x$getsolve()
+        m <- x$getsolve() # from the makeCacheSolve function above
         if(!is.null(m)) {
                 message("getting cached data")
                 return(m)
         }
         data <- x$get()
-        m <- solve(data, ...)
-        x$setmean(m)
-        m
+        m <- solve(data, ...)  # computes the inverse using R's built-in function
+        x$setsolve(m)
+        m 
 }
+
+# Other notes:
+# uses the built-in R function 'solve'
+# if a is a matrix
+# and x = solve(a)
+# then a * x = the identity matrix
